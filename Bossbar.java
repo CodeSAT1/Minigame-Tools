@@ -87,7 +87,9 @@ public class Bossbar {
 	}
 
 	public static void removePlayers(List<Player> players, String... ids) {
-		removePlayers(ids, (Player[]) players.toArray());
+		for (Player player : players) {
+			removePlayer(player, ids);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -116,7 +118,9 @@ public class Bossbar {
 	}
 
 	public static void clearBars() {
-		deleteBars((String[]) ids.keySet().toArray());
+		for (String id : ids.keySet()) {
+			deleteBars(id);
+		}
 	}
 
 	// -------
