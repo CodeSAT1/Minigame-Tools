@@ -51,7 +51,9 @@ public class Bossbar {
 	}
 
 	public static void addPlayers(List<Player> players, String... ids) {
-		addPlayers(ids, (Player[]) players.toArray());
+		for (Player player : players) {
+			addPlayer(player, ids);
+		}
 	}
 
 	public static void addPlayers(String[] ids, Player... players) {
