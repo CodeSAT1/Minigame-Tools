@@ -140,8 +140,12 @@ public class ItemBuilder {
 	 * @param loreItems The StringList with the added loreItems
 	 */
 	public ItemBuilder addLore(List<String> loreItems) {
-		loreItems.addAll(itemMeta.getLore());
-		return setLore(loreItems);
+		List<String> lore = itemMeta.getLore();
+		if (lore == null) {
+			return setLore(loreItems);
+		}
+		lore.addAll(loreItems);
+		return setLore(lore);
 	}
 
 	/**
@@ -161,7 +165,9 @@ public class ItemBuilder {
 	 */
 	public ItemBuilder removeLore(List<String> loreItems) {
 		List<String> lore = itemMeta.getLore();
-		loreItems.forEach(loreItem -> lore.remove(loreItem));
+		if (lore != null) {
+			loreItems.forEach(loreItem -> lore.remove(loreItem));
+		}
 		return setLore(lore);
 	}
 
@@ -207,7 +213,10 @@ public class ItemBuilder {
 	 * Remove all ItemFlags from the item
 	 */
 	public ItemBuilder clearItemFlags() {
-		return removeItemFlags((ItemFlag[]) itemMeta.getItemFlags().toArray());
+		for (ItemFlag flag : itemMeta.getItemFlags()) {
+			removeItemFlags(flag);
+		}
+		return this;
 	}
 
 	/**
@@ -266,7 +275,10 @@ public class ItemBuilder {
 	 * Removing all enchants from the item
 	 */
 	public ItemBuilder clearEnchants() {
-		return removeEnchants((Enchantment[]) itemMeta.getEnchants().keySet().toArray());
+		for (Enchantment enchant : itemMeta.getEnchants().keySet()) {
+			removeEnchants(enchant);
+		}
+		return this;
 	}
 
 	/**
@@ -319,5 +331,5 @@ public class ItemBuilder {
 		itemStack.setItemMeta(itemMeta);
 		return itemStack;
 	}
-	
+
 }
