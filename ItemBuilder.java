@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
  * To get the created item use the method getItem()
  * 
  * @author CodeSAT
+ * @version 1.02
  *
  */
 public class ItemBuilder {
